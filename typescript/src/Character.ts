@@ -1,32 +1,42 @@
 export class Character {
-  private health: number
-  private level: number
-  private alive: boolean
+    private health: number
+    private level: number
+    private alive: boolean
 
-  constructor() {
-    this.health = 1000
-    this.level = 1
-    this.alive = true
-  }
-
-  public getHealth() {
-    return this.health
-  }
-
-  public getLevel() {
-    return this.level
-  }
-
-  public isAlive() {
-    return this.alive
-  }
-
-  public doDamage(damage: number) {
-    if(damage >= this.health) {
-      this.health = 0
-      this.alive = false
-      return
+    constructor() {
+        this.health = 1000
+        this.level = 1
+        this.alive = true
     }
-    this.health = this.health - damage
-  }
+
+    public getHealth(): number {
+        return this.health
+    }
+
+    public getLevel(): number {
+        return this.level
+    }
+
+    public isAlive(): boolean {
+        return this.alive
+    }
+
+    public doDamage(damage: number): void {
+        if (damage >= this.health) {
+            this.health = 0
+            this.alive = false
+            return
+        }
+        this.health = this.health - damage
+    }
+
+    public doHeal(heal: number): void {
+        if (!this.alive) {
+            return;
+        }
+        this.health = this.health + heal
+        if (this.health > 1000) {
+            this.health = 1000;
+        }
+    }
 }
