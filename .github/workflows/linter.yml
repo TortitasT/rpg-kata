@@ -24,7 +24,7 @@ jobs:
         run: yarn --prefer-offline
 
       - name: Run linters
-        run: yarn lint --fix --cwd typescript
+        run: yarn --cwd typescript lint --fix
 
       - name: setup git config
         run: |
