@@ -1,0 +1,38 @@
+name: Lint fix
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  lint-fix:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: v16.6.1
+
+      - name: Install dependencies
+        run: yarn --prefer-offline
+
+      - name: Run linters
+        run: yarn --cwd typescript lint --fix
+
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: commit
+        run: |
+          git add --all
+          git commit -m "Fix linter"
+          git push origin master
